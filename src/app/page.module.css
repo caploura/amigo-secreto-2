@@ -37,8 +37,7 @@
 }
 
 .textBox {
-  height: 2.5rem;
-  width: 12rem;
+  margin:1rem;
   background-color: white;
   color: black;
   border-style: hidden;
@@ -66,4 +65,5 @@
 .submitButton {
   width: 6.5rem !important;
   padding: 0.5rem 1rem !important;
+  font-size: 18px !important;
 }
