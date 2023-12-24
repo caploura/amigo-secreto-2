@@ -18,7 +18,7 @@ export default function Home() {
     event.stopPropagation();
     // setSubmittedGuess(guess);
     console.log(`Final guess: ${guess}`);
-    const finalGuess = guess.toLowerCase();
+    const finalGuess = guess.trim().toLowerCase();
 
     if (rightChoice.find((rc) => rc === finalGuess)) {
       setStatus(right);
