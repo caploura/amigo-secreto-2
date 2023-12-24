@@ -71,8 +71,10 @@ export default function Home() {
 
       {status === right ? (
         <div className={styles.rightPage}>
-          <h3>CERTO!</h3>
-          <h5>Feliz Natal!</h5>
+          <div className={styles.correctText}>
+            <h3>CERTO!</h3>
+            <h5>Feliz Natal!</h5>
+          </div>
         </div>
       ) : (
         <div> </div>
