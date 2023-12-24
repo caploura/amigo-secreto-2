@@ -1,95 +1,82 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import React, { useState } from "react";
+import styles from "./page.module.css";
+import { Form, Button } from "react-bootstrap";
+
+const pending = "pending";
+const wrong = "wrong";
+const right = "right";
+
+const rightChoice = ["carlos", "carlos loura"];
 
 export default function Home() {
+  const [guess, setGuess] = useState("");
+  const [status, setStatus] = useState(pending);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    // setSubmittedGuess(guess);
+    console.log(`Final guess: ${guess}`);
+    const finalGuess = guess.toLowerCase();
+
+    if (rightChoice.find((rc) => rc === finalGuess)) {
+      setStatus(right);
+    } else {
+      console.log(`Setting status to ${wrong}`);
+      setStatus(wrong);
+      setTimeout(() => {
+        console.log(`Setting status to ${pending}`);
+        setStatus(pending);
+      }, 5000);
+    }
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div>
+      {status === pending ? (
+        <div className={styles.mainPage}>
+          <div className={styles.query}>
+            <h3 className={styles.question}>Quem será o meu amigo secreto?</h3>
+            <Form onSubmit={handleSubmit} className={styles.formStyle}>
+              <Form.Control
+                onChange={(event) => setGuess(event.target.value)}
+                type="text"
+                name="palpite"
+                placeholder="Palpite"
+                className={styles.textBox}
+              />
+              <Button
+                variant="primary"
+                type="submit"
+                className={styles.submitButton}
+              >
+                Submeter
+              </Button>
+            </Form>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div> </div>
+      )}
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {status === wrong ? (
+        <div className={styles.wrongPage}>
+          <img src="/mad-santa.jpeg" className={styles.santaImage}></img>
+          <h3>ERRADO, tanta novamente!</h3>
+        </div>
+      ) : (
+        <div> </div>
+      )}
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+      {status === right ? (
+        <div className={styles.rightPage}>
+          <h3>CERTO!</h3>
+          <h5>Feliz Natal!</h5>
+        </div>
+      ) : (
+        <div> </div>
+      )}
+    </div>
+  );
 }
