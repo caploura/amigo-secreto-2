@@ -63,7 +63,7 @@ export default function Home() {
       {status === wrong ? (
         <div className={styles.wrongPage}>
           <img src="/mad-santa.jpeg" className={styles.santaImage}></img>
-          <h3>ERRADO, tanta novamente!</h3>
+          <h3>Errado! Tenta novamente!</h3>
         </div>
       ) : (
         <div> </div>
